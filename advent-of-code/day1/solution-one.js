@@ -30,5 +30,4 @@ lines.forEach((line, index) => {
 
 }
 
-console.log(differenceCalculator(data))
 module.exports = differenceCalculator

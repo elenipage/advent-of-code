@@ -1001,8 +1001,4 @@ const input = `
 83 84 87 90 91 94 96 98
 `
 
-const formattedData = input.trim().split("\n").map(line => 
-    line.split(" ").map(Number)
-  );
-
-module.exports = formattedData
+module.exports = input

@@ -27,5 +27,3 @@ lines.forEach((line, index) => {
 }
 
 module.exports = similarityCalculator
-
-console.log(similarityCalculator(data))

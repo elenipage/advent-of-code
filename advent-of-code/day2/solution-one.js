@@ -1,39 +1,42 @@
-const reports = require("./input");
+const input = require("./input");
 
-function safeReportDetector() {
-    let safeCount = 0;
-  
-    reports.forEach(report => {
-      if (report.length < 2) return; // Skip invalid or single-number reports
-  
-      let isAscending = true;
-      let isDescending = true;
-      let validDifferences = true;
-  
-      for (let i = 1; i < report.length; i++) {
-        const diff = report[i] - report[i - 1];
-  
-        // Check difference range
-        if (diff < 1 || diff > 3) {
-          validDifferences = false;
-          break;
-        }
-  
-        // Check direction consistency
-        if (diff > 0) {
-          isDescending = false; // Any increase breaks "descending" status
-        } else if (diff < 0) {
-          isAscending = false; // Any decrease breaks "ascending" status
-        }
+function safeReportDetector(data) {
+  const formattedData = data
+    .trim()
+    .split("\n")
+    .map((line) => line.split(" ").map(Number));
+  let safeCount = 0;
+
+  formattedData.forEach((report) => {
+    if (report.length < 2) return;
+
+    let isAscending = false;
+    let isDescending = false;
+    let validDifferences = true;
+
+    for (let i = 1; i < report.length; i++) {
+      const diff = report[i] - report[i - 1];
+      if (diff < 0) {
+        isDescending = true;
+      } else {
+        isAscending = true;
       }
-  
-      // Report is safe if it satisfies both conditions
-      if (validDifferences && (isAscending || isDescending)) {
-        safeCount++;
+      if (isDescending && (diff > -1 || diff < -3)) {
+        validDifferences = false;
+        break;
       }
-    });
-  
-    return safeCount;
-  }
-  
-  console.log(safeReportDetector());
+      if (isAscending && (diff < 1 || diff > 3)) {
+        validDifferences = false;
+        break;
+      }
+    }
+
+    if (validDifferences) {
+      safeCount++;
+    }
+  });
+
+  return safeCount;
+}
+
+module.exports = safeReportDetector;
