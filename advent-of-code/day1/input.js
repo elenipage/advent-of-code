@@ -1000,14 +1000,4 @@ const data = `
 73748   82211
 32593   18922`
 
-const lines = data.trim().split("\n");
-const array1 = [];
-const array2 = [];
-
-lines.forEach(line => {
-    const [num1, num2] = line.split(/\s+/).map(Number);
-    array1.push(num1);
-    array2.push(num2);
-});
-
-module.exports = {array1, array2}
+module.exports = data
